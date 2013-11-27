@@ -549,6 +549,7 @@ static int assemble(
                                 strncpy(macfile, label, sizeof(macfile));
                                 strncat(macfile, ".MAC", sizeof(macfile) - strlen(macfile));
                                 my_searchenv(macfile, "MCALL", hitfile, sizeof(hitfile));
+								macstr = NULL;
                                 if (hitfile[0])
                                     macstr = new_file_stream(hitfile);
                             }
