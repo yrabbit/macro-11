@@ -132,6 +132,7 @@ void my_searchenv(
     char           *env;
     char           *envcopy;
     char           *cp;
+	char	*p_envcopy;
 
     *hitfile = 0;                      /* Default failure indication */
 
@@ -156,7 +157,9 @@ void my_searchenv(
                                           argument.  I don't want the return
                                           value from getenv destroyed. */
 
-    while ((cp = strtok(envcopy, PATHSEP)) != NULL) {
+	p_envcopy = envcopy;
+    while ((cp = strtok(p_envcopy, PATHSEP)) != NULL) {
+		p_envcopy = NULL;
         struct stat     info;
         char           *concat = malloc(strlen(cp) + strlen(name) + 2);
 
@@ -177,7 +180,7 @@ void my_searchenv(
             return;
         }
     }
-
+	free(envcopy);
     /* If I fall out of that loop, then hitfile indicates no match,
        and return. */
 }
