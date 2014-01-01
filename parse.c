@@ -768,6 +768,11 @@ EX_TREE        *parse_unary(
                 rad = 10;
 
             value = strtoul(cp, &endcp, rad);
+	    /* test if bad number */
+	    if (isdigit(*endcp)) {
+		    goto bad_number;
+	    }
+
             if (*endcp == '.')
                 endcp++;
 
@@ -781,7 +786,7 @@ EX_TREE        *parse_unary(
 
         free(label);
     }
-
+bad_number:;
     /* Now check for a symbol */
     {
         char           *label;
